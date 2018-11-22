@@ -37,7 +37,6 @@ app.use(helmet.featurePolicy({
   }
 }));
 
-
 app.use(logger('dev', {
   skip: () => app.get('env') === 'test'
 }));
