@@ -3,6 +3,7 @@ import path from 'path';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
+import mongoose from 'mongoose';
 
 import routes from './routes';
 
@@ -43,6 +44,14 @@ app.use(logger('dev', {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '../public')));
+
+// DB 
+// TODO: Use .env
+// TODO: Extract to module
+mongoose.connect('mongodb://localhost:27017/instagram');
+const db = mongoose.connection;
+db.on('error', console.log.bind(console, 'connection error:')); // eslint-disable-line no-console
+db.once('open', () => console.log('Open!')); // eslint-disable-line no-console
 
 // Routes
 app.use('/', routes);
