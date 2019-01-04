@@ -3,3 +3,19 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  h2 Register
+  form(action="/register", method="post")
+    p
+      input#username(type="email", name="username")
+    p
+      input#password(type="password", name="password")
+    p  
+      button(type="submit") Submit
+  h2 Login
+  form(action="/login", method="post")
+    p
+      input#username(type="email", name="username")
+    p
+      input#password(type="password", name="password")
+    p  
+      button(type="submit") Submit

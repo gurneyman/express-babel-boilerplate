@@ -9,33 +9,49 @@ import UserModel from '../models/user';
 const LocalStrategy = passportLocal.Strategy;
 const JWTStrategy = passportJWT.Strategy;
 
-passport.use(new LocalStrategy({
-    usernameField: username,
-    passwordField: password,
-}, async (username, password, done) => {
-    try {
-        const userDocument = await UserModel.findOne({username}).exec();
-        const passwordsMatch = await bcrypt.compare(password, userDocument.passwordHash);
+const localStrategyConfig = {
+    usernameField: 'username',
+    passwordField: 'password',
+    session: false
+};
 
+async function localStrategyImpl(username, password, done) {
+    try {
+        const userDocument = await UserModel.findOne({ username }).exec();
+        const passwordsMatch = await bcrypt.compare(password, userDocument.passwordHash);
         if (passwordsMatch) {
             return done(null, userDocument);
-        } else {
+        }
+        else {
             return done('Incorrect Username / Password');
         }
-    } catch (error) {
+    }
+    catch (error) {
         done(error);
     }
-}));
+}
 
-passport.use(new JWTStrategy({
+const localStrategy = new LocalStrategy(localStrategyConfig, localStrategyImpl);
+
+// TODO: Make own module
+const jwtStrategyConfig = {
     jwtFromRequest: req => req.cookies.jwt,
     secretOrKey: secret,
-},
-(jwtPayload, done) => {
-    if (jwtPayload.expires > Date.now()) {
+    session: false
+};
+
+function jwtStrategyImpl(jwtPayload, done) {
+    if (jwtPayload.expires < Date.now()) {
         return done('jwt expired');
     }
-
     return done(null, jwtPayload);
-    }
-));
+}
+
+const jwtStrategy = new JWTStrategy(jwtStrategyConfig, jwtStrategyImpl);
+
+export default () => {
+    passport.use(localStrategy);
+    passport.use(jwtStrategy);
+}
+
+

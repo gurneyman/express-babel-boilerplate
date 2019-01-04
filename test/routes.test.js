@@ -16,7 +16,7 @@ describe('GET /list', () => {
   });
 
   it('should error without a valid parameter', async () => {
-    await request(app).get('/list').expect(500);
+    await request(app).get('/list').expect(400);
   });
 });
 
