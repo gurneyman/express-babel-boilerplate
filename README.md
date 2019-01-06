@@ -1,4 +1,5 @@
 # Express.js with Babel Boilerplate
+## Based on [vmasto's work](https://github.com/vmasto/express-babel)
 
 [![Code Climate](https://codeclimate.com/github/vmasto/express-babel/badges/gpa.svg)](https://codeclimate.com/github/vmasto/express-babel)
 [![Dependencies Status](https://david-dm.org/vmasto/express-babel/status.svg)](https://david-dm.org/vmasto/express-babel)
