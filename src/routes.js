@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import passport from 'passport';
 
 const routes = Router();
 
@@ -31,5 +32,14 @@ routes.get('/list', (req, res, next) => {
 
   res.render('index', { title });
 });
+
+routes.get('/protected',
+    passport.authenticate('jwt', {session: false}),
+    (req, res) => {
+        const { user } = req;
+        user.expiresDate = new Date(user.expires).toString();
+        res.status(200).send({ user });
+    }
+);
 
 export default routes;
