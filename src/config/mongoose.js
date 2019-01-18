@@ -1,8 +1,11 @@
 import mongoose from 'mongoose';
 
-// TODO: Use .env
 // TODO: Better way to start mongo than mongod? Consider using service?
-const MONGOOSE_CONNECT_URL = 'mongodb://localhost:27017/instagram';
+const {MONGOOSE_CONNECT_URL} = process.env;
+if(!MONGOOSE_CONNECT_URL) {
+  throw new Error('Must provide MONGOOSE_CONNECT_URL in .env');
+}
+
 const MONGOOSE_CONNECT_CONFIG = { 
     useCreateIndex: true, 
     useNewUrlParser: true 
