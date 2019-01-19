@@ -1,6 +1,6 @@
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
-import secret from '../secret';
+import secret from './secret';
 
 
 const LoginController = (req, res) => {

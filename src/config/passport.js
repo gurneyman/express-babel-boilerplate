@@ -2,7 +2,7 @@ import passport from 'passport';
 import passportLocal from 'passport-local';
 import passportJWT from 'passport-jwt';
 import bcrypt from 'bcrypt';
-import secret from '../secret';
+import secret from './secret';
 
 import UserModel from '../models/user';
 
