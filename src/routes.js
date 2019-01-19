@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import passport from 'passport';
 
+import authRoutes from './auth/routes';
+
 const routes = Router();
 
 /**
@@ -42,4 +44,9 @@ routes.get('/protected',
     }
 );
 
-export default routes;
+function configureRoutes (app) {
+  app.use('/', authRoutes);
+  app.use('/', routes);
+}
+
+export default configureRoutes;

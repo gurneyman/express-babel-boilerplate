@@ -8,8 +8,7 @@ import configureHelmet from './config/helmet';
 import configureMongoose from './config/mongoose';
 import configurePassport from './config/passport';
 
-import authRoutes from './auth/routes';
-import routes from './routes';
+import configureRoutes from './routes';
 
 // TODO: Need some linting going on here
 // TODO: Create issues for these todos on my github repo
@@ -39,10 +38,7 @@ app.use(cookieParser());
 
 
 
-// Routes
-// TODO: Put this in a routes index.js and inject the app
-app.use('/', authRoutes);
-app.use('/', routes);
+configureRoutes(app);
 
 // TODO: Create error handling module... inject app.
 // Catch 404 and forward to error handler
