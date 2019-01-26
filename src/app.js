@@ -6,7 +6,6 @@ import path from 'path';
 
 import configureHelmet from './config/helmet';
 import configureMongoose from './config/mongoose';
-import configurePassport from './config/passport';
 
 import configureRoutes from './routes';
 
@@ -24,7 +23,6 @@ app.use(express.static(path.join(__dirname, '../public')));
 // Configuration
 configureHelmet(app);
 configureMongoose();
-configurePassport();
 
 // Dev config
 app.use(logger('dev', {
